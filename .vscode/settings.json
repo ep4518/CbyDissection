@@ -3,6 +3,7 @@
     "files.associations": {
         "*.c": "c",
         "stdbool.h": "c",
-        "complex": "c"
+        "complex": "c",
+        "cstdlib": "c"
     }
 }
