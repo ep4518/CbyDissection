@@ -65,3 +65,80 @@ void prn_instructions(void) {
         "   This game is played repeatedly until q is entered.\n",
         "   Good luck!\n");
 }
+
+p_r_s selection_by_player(void) {
+    int c;
+    p_r_s player;
+
+    printf("Input p, r, or s:   ");
+    while (isspace(c = getchar()))  /* skip white space */
+        ;
+    switch (c) {
+    case 'p':
+        player = paper;
+        break;
+    case 'r':
+        player = rock;
+        break;
+    case 's':
+        player = scissors;
+        break;
+    case 'g':
+        player = game;
+        break;
+    case 'i':
+        player = instructions;
+        break;
+    case 'q':
+        player = quit;
+        break;
+    default:
+        player = help;
+        break;
+    }
+    return player;
+}
+
+p_r_s selection_by_machine(void) {
+    return ((p_r_s) (rand() % 3));
+}
+
+outcome compare(p_r_s player, p_r_s machine) {
+    outcome result;
+
+    if (player == machine)
+        return tie;
+    switch (player) {
+    case paper:
+        result = (machine == rock) ? win : lose;
+        break;
+    case rock:
+        result = (machine == scissors) ? win : lose;
+        break;
+    case scissors:
+        result = (machine == paper) ? win : lose;
+        break;
+    }
+    return result;
+}
+
+void game_status(int win_cnt, int lose_cnt, int tie_cnt) {
+    printf("\n%s\n%s%4d\n%s%4d\n%s%4d\n%s%4d\n\n",
+        "GAME STATUS:",
+        "   Win:    ", win_cnt,
+        "   Lose:   ", lose_cnt,
+        "   Tie:    ", tie_cnt,
+        "   Total:  ", win_cnt + lose_cnt + tie_cnt);
+}
+
+void help_for_the_player (void) {
+    printf("\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+        "The following characters can be used for input:",
+        "   p   for paper",
+        "   r   for rock",
+        "   s   for scissors",
+        "   g   to find out the game status",
+        "   h   to print this list",
+        "   i   to reprint the instructions for this game",
+        "   q   to quit this game");
+}
